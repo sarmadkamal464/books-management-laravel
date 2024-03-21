@@ -91,7 +91,7 @@ class BookComponent extends Component
 
         // Redirect or change view after saving
         $this->changeView('index');
-        $this->dispatch('successMessage', ['message' => 'Book Add']);
+        $this->dispatch('successMessage', ['message' => 'Book Added Successfully']);
     }
 
     public function edit($id)
@@ -120,9 +120,7 @@ class BookComponent extends Component
     }
     public function delete($id)
     {
-        $confirm = $this->dispatch('confirmation', ['id', $id]);
-    }
-    public function confirmDelete($id)
-    {
+        $book = Book::find($id)->delete();
+        $this->dispatch('successMessage', ['message', 'Deleted']);
     }
 }
