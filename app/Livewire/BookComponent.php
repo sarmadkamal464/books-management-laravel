@@ -38,7 +38,7 @@ class BookComponent extends Component
      */
     public string $description;
 
-     /**
+    /**
      * Create a new component instance.
      *
      * @type string
@@ -91,9 +91,11 @@ class BookComponent extends Component
 
         // Redirect or change view after saving
         $this->changeView('index');
+        $this->dispatch('successMessage', ['message' => 'Book Add']);
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
         $book = Book::findOrFail($id);
         $this->edit_id = $book->id;
         $this->title = $book->title;
@@ -102,15 +104,26 @@ class BookComponent extends Component
         $this->description = $book->description;
         $this->changeView('edit');
     }
-    public function update(){
+    public function update()
+    {
         $book = Book::findOrFail($this->edit_id);
         $book->title = $this->title;
         $book->price = $this->price;
-        if($book->image != $this->image){
-            $book->image = asset(Storage::url($this->image));
+        $imagePath = Storage::put('public/images', $this->image);
+        $book->image = asset(Storage::url($imagePath));
+        if ($book->image != $this->image) {
+        } else {
+            dd("Not");
         }
         $book->description = $this->description;
         $book->save();
         $this->changeView('index');
+    }
+    public function delete($id)
+    {
+        $confirm = $this->dispatch('confirmation', ['id', $id]);
+    }
+    public function confirmDelete($id){
+
     }
 }
