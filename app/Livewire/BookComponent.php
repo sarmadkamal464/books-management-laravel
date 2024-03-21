@@ -10,70 +10,59 @@ use Livewire\WithFileUploads;
 class BookComponent extends Component
 {
     use WithFileUploads;
-    /**
-     * Create a new component instance.
-     *
-     * @type string
-     */
+
+    /** @var string */
     public string $title;
 
-    /**
-     * Create a new component instance.
-     *
-     * @type string
-     */
+    /** @var string */
     public string $price;
 
-    /**
-     * Create a new component instance.
-     *
-     * @type string
-     */
+    /** @var string */
     public $image;
 
-    /**
-     * Create a new component instance.
-     *
-     * @type string
-     */
+    /** @var string */
     public string $description;
 
-    /**
-     * Create a new component instance.
-     *
-     * @type string
-     */
+    /** @var string */
     public string $edit_id;
 
-    /**
-     * Create a new component instance.
-     *
-     * @type string
-     */
+    /** @var string */
     public string $blade = 'index';
 
     /**
-     * Create a new component instance.
+     * Change view for the component.
      *
-     * @param $value
+     * @param string $value
+     * @return string
      */
     public function changeView($value): string
     {
         return $this->blade = $value;
     }
+
+    /**
+     * Render the component.
+     *
+     * @return \Illuminate\Contracts\View\View
+     */
     public function render()
     {
         $books = Book::all();
         return view('livewire.book-component', compact('books'));
     }
 
-    public function save()
+    /**
+     * Save a new book.
+     *
+     * @return void
+     */
+    public function save(): void
     {
         $this->validate([
-            'title' => 'required',
-            'price' => 'required',
+            'title' => 'required|string',
+            'price' => 'required|string',
             'image' => 'required|image|max:1024', // Adjust validation rules as needed
-            'description' => 'required',
+            'description' => 'required|string',
         ]);
 
         // Store the image in the storage disk
@@ -94,7 +83,13 @@ class BookComponent extends Component
         $this->dispatch('successMessage', ['message' => 'Book Added Successfully']);
     }
 
-    public function edit($id)
+    /**
+     * Edit an existing book.
+     *
+     * @param int $id
+     * @return void
+     */
+    public function edit(int $id): void
     {
         $book = Book::findOrFail($id);
         $this->edit_id = $book->id;
@@ -104,7 +99,13 @@ class BookComponent extends Component
         $this->description = $book->description;
         $this->changeView('edit');
     }
-    public function update()
+
+    /**
+     * Update an existing book.
+     *
+     * @return void
+     */
+    public function update(): void
     {
         $book = Book::findOrFail($this->edit_id);
         $book->title = $this->title;
@@ -117,10 +118,18 @@ class BookComponent extends Component
         $book->description = $this->description;
         $book->save();
         $this->changeView('index');
+        $this->dispatch('successMessage', ['message' => 'Updated']);
     }
-    public function delete($id)
+
+    /**
+     * Delete a book.
+     *
+     * @param int $id
+     * @return void
+     */
+    public function delete(int $id): void
     {
         $book = Book::find($id)->delete();
-        $this->dispatch('successMessage', ['message', 'Deleted']);
+        $this->dispatch('successMessage', ['message' => 'Deleted']);
     }
 }
