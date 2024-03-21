@@ -9,6 +9,13 @@ use Livewire\Component;
 
 class UserComponent extends Component
 {
+       /**
+     * Create a new component instance.
+     *
+     * @type string
+     */
+    public string $edit_id = '';
+
     /**
      * Create a new component instance.
      *
@@ -54,6 +61,7 @@ class UserComponent extends Component
         return $this->blade = $value;
     }
 
+
     /**
      * Create a new component instance.
      *
@@ -67,7 +75,7 @@ class UserComponent extends Component
 
     public function save()
     {
-        $user =new User();
+        $user = new User();
         $user->name = $this->name;
         $user->email = $this->email;
         $user->role = $this->role;
@@ -75,4 +83,39 @@ class UserComponent extends Component
         $user->save();
         $this->changeView('index');
     }
+    public function edit($id)
+    {
+        
+            $user = User::findOrFail($id);
+            $this->edit_id = $user->id;
+            $this->name = $user->name;
+            $this->email = $user->email;
+            $this->role = $user->role;
+            $this->changeView('edit');
+
+            // You can add more fields to update if needed
+          
+    }
+
+    public function update()
+    {
+        $this->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'role' => 'required',
+        ]);
+        $user = User::findOrFail($this->edit_id);
+        $user->name = $this->name;
+        $user->email = $this->email;
+        $user->role = $this->role;
+        $user->save();
+        $this->changeView('index');
+    }
+
+    public function delete($id)
+    {      
+        User::findOrFail($id)->delete();
+        $this->changeView('index');   
+    }
+
 }
