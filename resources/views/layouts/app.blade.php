@@ -6,10 +6,6 @@
     @include('layouts.head')
 </head>
 <body>
-
-
-
-
 @include('layouts.navbar')
 <div class="flex">
     @include('layouts.sidebar')
@@ -19,8 +15,6 @@
         </main>
     </div>
 </div>
-
 @include('layouts.footer')
-
 </body>
 </html>
