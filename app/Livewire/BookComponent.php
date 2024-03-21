@@ -109,11 +109,10 @@ class BookComponent extends Component
         $book = Book::findOrFail($this->edit_id);
         $book->title = $this->title;
         $book->price = $this->price;
-        $imagePath = Storage::put('public/images', $this->image);
-        $book->image = asset(Storage::url($imagePath));
+
         if ($book->image != $this->image) {
-        } else {
-            dd("Not");
+            $imagePath = Storage::put('public/images', $this->image);
+            $book->image = asset(Storage::url($imagePath));
         }
         $book->description = $this->description;
         $book->save();
@@ -123,7 +122,7 @@ class BookComponent extends Component
     {
         $confirm = $this->dispatch('confirmation', ['id', $id]);
     }
-    public function confirmDelete($id){
-
+    public function confirmDelete($id)
+    {
     }
 }
