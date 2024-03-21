@@ -18,3 +18,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function (){
         return view('admin.books.index');
     })->name('books');
 });
+
+Route::middleware(['auth'])->prefix('website')->group(function (){
+   
+
+});
