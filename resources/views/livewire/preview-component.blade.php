@@ -1,8 +1,8 @@
-<div class="">
+<div>
     <form class="mb-4 w-full md:mb-0 md:w-1/4">
 
         <label class="hidden" for="search-form">Search</label>
-        <input wire:keyup="search" wire:model="searchValue" class="bg-grey-lightest border-2 focus:border-orange p-2 rounded-lg shadow-inner w-full" placeholder="Search" type="text">
+        <input wire:keyup="search" wire:model="searchValue" class="bg-grey-lightest border-2 focus:border-orange p-2 text-sm rounded-lg shadow-inner w-full" placeholder="Search..." type="text">
         <button class="hidden">Submit</button>
     </form>
     @if($filterValue == 'all' || $filterValue == 'fav')
@@ -18,6 +18,7 @@
     </div>
     @endif
     @if($filterValue == 'all')
+    <h1>All Books</h1>
     <section class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
         @foreach($books as $book)
         <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
@@ -43,7 +44,7 @@
         @endforeach
     </section>
     @elseif($filterValue == 'fav')
-    <h1>Fav</h1>
+    <h1>Favourite Books</h1>
     <section class="w-fit mx-auto grid grid-cols-1 lg:grid-cols-3 md:grid-cols-2 justify-items-center justify-center gap-y-20 gap-x-14 mt-10 mb-5">
         @foreach($favBooks as $favBook)
         <div class="w-72 bg-white shadow-md rounded-xl duration-500 hover:scale-105 hover:shadow-xl">
@@ -77,10 +78,9 @@
                     <p class="text-gray-700 text-base">{{$bookDetail->description}}</p>
                 </div>
                 <div class="flex items-center">
-                    <img class="w-10 h-10 rounded-full mr-4" src="{{$bookDetail->image}}" alt="Avatar of Writer">
                     <div class="text-sm">
-                        <p class="text-gray-900 leading-none">John Smith</p>
-                        <p class="text-gray-600">Aug 18</p>
+                        <p class="text-gray-900 leading-none">${{$bookDetail->price}}</p>
+                        <p class="text-gray-600">{{$bookDetail->created_at->format('Y-m-d')}}</p>
                     </div>
                 </div>
             </div>

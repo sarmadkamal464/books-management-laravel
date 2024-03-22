@@ -3,17 +3,17 @@
     {{-- Nothing in the world is as soft and yielding as water. --}}
     @if ($blade == 'index')
     <div class="w-full flex justify-end">
-        <button class="bg-blue-500 hover:bg-blue-700 text-white px-3 font-bold rounded" wire:click="changeView('add')">
+        <button class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-4 py-2 font-bold rounded-md shadow-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50" wire:click="changeView('add')">
             Add Book
-        </button>
+        </button>        
     </div>
     <div class="min-h-screen flex justify-center items-start pt-2">
-        <div class="container flex justify-center bg-red-400 gap-10 flex-wrap p-2">
+        <div class="container flex justify-center gap-10 flex-wrap p-2">
             @foreach ($books as $book)
             <div class="max-w-80  bg-current">
-                <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500 rounded-lg">
-                    <img class="rounded-t-lg" src="{{ $book->image }}" alt="No Image Preview" />
-                    <div class="py-6 px-8 rounded-lg bg-white">
+                <div class="bg-white relative shadow-lg hover:shadow-xl transition duration-500">
+                    <img class=" border-y-4" src="{{ $book->image }}" alt="No Image Preview" />
+                    <div class="py-6 px-8  bg-white">
                         <h1 class="text-gray-700 font-bold text-2xl mb-3 hover:text-gray-900 hover:cursor-pointer">
                             {{ $book->title }}
                         </h1>

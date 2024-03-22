@@ -3,11 +3,11 @@
     <!-- Logo text or image -->
     <div class="flex items-center justify-between mb-4 md:mb-0">
       <h1 class="leading-none text-2xl text-grey-darkest">
-        <a class="no-underline text-grey-darkest hover:text-black" href="#">
-          Site Title
+        <a class="no-underline text-grey-darkest hover:text-black" href="/">
+          BookBliss
         </a>
       </h1>
-
+    
       <a class="text-black hover:text-orange md:hidden" href="#">
         <i class="fa fa-2x fa-bars"></i>
       </a>
@@ -24,19 +24,19 @@
       <ul class="list-reset md:flex md:items-center">
         <li class="md:ml-4">
           <a class="block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" href="#">
-            Products
+            Books
           </a>
         </li>
-        <li class="md:ml-4">
-          <a class="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" href="#">
-            About
-          </a>
-        </li>
-        <li class="md:ml-4">
-          <a class="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" href="#">
-            Contact
-          </a>
-        </li>
+        <li class="md:ml-4 flex">
+          @auth
+              <a class="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0 mr-2" href="{{ route('profile') }}">Profile</a>
+              <a class="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" wire:click="logoutUser" href="#">Logout</a>
+          @else
+              <a class="border-t block no-underline hover:underline py-2 text-grey-darkest hover:text-black md:border-none md:p-0" href="{{ route('login') }}">Login</a>
+          @endauth
+      </li>
+      
+      
       </ul>
     </nav>
     <!-- END Global navigation -->

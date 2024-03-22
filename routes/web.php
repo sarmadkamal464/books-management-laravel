@@ -21,5 +21,7 @@ Route::middleware(['auth', 'Role:admin'])->prefix('admin')->name('admin.')->grou
 });
 
 Route::middleware(['auth'])->prefix('website')->group(function (){
-
+    Route::get('profile', function (){
+        return view('website.profile.index');
+    })->name('profile');
 });
