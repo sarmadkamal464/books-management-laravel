@@ -6,7 +6,7 @@
     @include('layouts.head')
 </head>
 <body>
-@include('layouts.navbar')
+@include('website.layouts.navbar')
 <div class="flex">
     <div class="flex-1 p-10 text-2xl font-bold">
         <main class="py-4">
@@ -14,6 +14,6 @@
         </main>
     </div>
 </div>
-@include('layouts.footer')
+@include('website.layouts.footer')
 </body>
 </html>
