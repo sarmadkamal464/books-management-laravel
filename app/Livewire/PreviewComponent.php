@@ -7,8 +7,13 @@ use App\Models\Favourite;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 
+use function Laravel\Prompts\alert;
+
 class PreviewComponent extends Component
 {
+    public $searchBooks;
+    public $searchValue;
+    public $bookDetail;
     public $favBooks;
     public string $filterValue = 'all';
     public function filter()
@@ -42,5 +47,19 @@ class PreviewComponent extends Component
         $favBook = Favourite::find($id)->delete();
         $this->filter();
         $this->dispatch('successMessage', ['message' => 'Remove']);
+    }
+    public function readMore($id){
+        if(!Auth::check()){
+            return redirect()->route('login');
+        }
+        $this->filterValue = 'preview';
+        $this->bookDetail = Book::find($id);
+    }
+    public function search(){
+        $this->searchBooks = Book::where(function ($query) {
+            $query->where('title', 'like', '%' . $this->searchValue . '%')
+                  ->orWhere('description', 'like', '%' . $this->searchValue . '%');
+        })->get();
+        $this->filterValue = 'search';
     }
 }
