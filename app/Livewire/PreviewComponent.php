@@ -57,7 +57,6 @@ class PreviewComponent extends Component
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-
         $favBook = Favourite::firstOrCreate(
             ['book_id' => $id, 'user_id' => Auth::id()],
             ['book_id' => $id, 'user_id' => Auth::id()]
