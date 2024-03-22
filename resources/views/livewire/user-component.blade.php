@@ -1,7 +1,7 @@
 <div>
     @if($blade == 'index')
         <div class="w-full flex justify-end">
-            <button class="bg-blue-500 hover:bg-blue-700 text-white px-3 font-bold rounded" wire:click="changeView('add')">
+            <button class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700" wire:click="changeView('add')">
                 Add user
             </button>
         </div>
@@ -47,7 +47,7 @@
                     <tbody>
                     @foreach($users as $user)
                         <tr
-                        
+
                             class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             <td class="w-4 p-4">
                                 <div class="flex items-center">
@@ -65,10 +65,8 @@
                                 {{$user->role}}
                             </td>
                             <td class="px-6 py-4 text-right">
-        
-                                <button class="font-medium text-blue-600 dark:text-blue-500 hover:underline" wire:click="edit({{ $user->id }})">Edit</button>
-                                <button class="font-medium text-red-600 dark:text-red-500 hover:underline" wire:click="delete({{ $user->id }})">Delete</button>
-                              
+                                <button class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800" wire:click="edit({{ $user->id }})"><i class="fa-solid fa-pen-to-square"></i></button>
+                                <button class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900" wire:click="delete({{ $user->id }})"><i class="fa-solid fa-trash"></i></button>
                             </td>
                         </tr>
                     @endforeach
