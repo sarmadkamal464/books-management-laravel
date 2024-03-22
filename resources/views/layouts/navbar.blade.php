@@ -6,13 +6,8 @@
         <div class="text-white p-5 sm:hidden">
             <button onclick="toggleSidebar()">Menu</button>
         </div>
-        <h1>BookBliss</h1>
-        <li class="block cursor-pointer p-2 hover:bg-gray-800 ">
-            <a class="" href="#">
-                <i class="w-8 fas fa-search p-2 rounded-full mx-2"></i>
-                Search
-            </a>
-        </li>
+        <a href="{{ route('admin.books') }}"><h1>BookBliss</h1></a>
+
     </div>
     <div>
 
@@ -35,13 +30,10 @@
                     class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
                     <ul class="py-2 text-sm text-gray-700 dark:text-gray-400" aria-labelledby="dropdownLargeButton">
                         <li>
-                            <a href="#"
+                            <a href="{{ route('admin.dashboard') }}"
                                 class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Dashboard</a>
                         </li>
-                        <li>
-                            <a href="#"
-                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-                        </li>
+                        
                     </ul>
                     <div class="py-1">
                         <form method="POST" action="{{ route('logout') }}">
