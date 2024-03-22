@@ -1,5 +1,5 @@
 <header class="border-b md:flex md:items-center md:justify-between p-4 pb-0 shadow-lg md:pb-4">
-  
+
     <!-- Logo text or image -->
     <div class="flex items-center justify-between mb-4 md:mb-0">
       <h1 class="leading-none text-2xl text-grey-darkest">
@@ -7,13 +7,13 @@
           Site Title
         </a>
       </h1>
-  
+
       <a class="text-black hover:text-orange md:hidden" href="#">
         <i class="fa fa-2x fa-bars"></i>
       </a>
     </div>
     <!-- END Logo text or image -->
-    
+
     <!-- Search field -->
     <form class="mb-4 w-full md:mb-0 md:w-1/4">
       <label class="hidden" for="search-form">Search</label>
@@ -21,7 +21,7 @@
       <button class="hidden">Submit</button>
     </form>
     <!-- END Search field -->
-    
+
     <!-- Global navigation -->
     <nav>
       <ul class="list-reset md:flex md:items-center">
@@ -43,5 +43,5 @@
       </ul>
     </nav>
     <!-- END Global navigation -->
-  
+
   </header>
