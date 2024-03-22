@@ -85,7 +85,7 @@ class UserComponent extends Component
     }
     public function edit($id)
     {
-        
+
             $user = User::findOrFail($id);
             $this->edit_id = $user->id;
             $this->name = $user->name;
@@ -94,7 +94,7 @@ class UserComponent extends Component
             $this->changeView('edit');
 
             // You can add more fields to update if needed
-          
+
     }
 
     public function update()
@@ -113,9 +113,9 @@ class UserComponent extends Component
     }
 
     public function delete($id)
-    {      
+    {
         User::findOrFail($id)->delete();
-        $this->changeView('index');   
+        $this->changeView('index');
     }
 
 }
