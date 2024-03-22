@@ -1,19 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-
+<!doctype html>
+<html lang="en-US">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
-    @vite(['resources/css/app.css','resources/js/app.js'])
+    @include('layouts.head')
 </head>
-
 <body>
-    @include('website.layouts.navbar')
-    <div class="container">
-        @yield('content')
+@include('layouts.navbar')
+<div class="flex">
+    <div class="flex-1 p-10 text-2xl font-bold">
+        <main class="py-4">
+            @yield('content')
+        </main>
     </div>
-    @include('website.layouts.footer')
+</div>
+@include('layouts.footer')
 </body>
-
 </html>
