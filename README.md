@@ -20,9 +20,12 @@ Before you begin, ensure you have the following installed on your system:
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone (https://github.com/sarmadkamal464/books-management-laravel.git)
-    ```sh
+   git clone https://github.com/sarmadkamal464/books-management-laravel.git
+   cd books-management-laravel
+   
     Composer:
+
+   
     composer install
     ```
     ```sh
@@ -43,8 +46,20 @@ Before you begin, ensure you have the following installed on your system:
     php artisan config:cache
     ```
 
+ ```sh
+    Run the migration:
+
+    php artisan migrate
+    ```
+
     ```sh
     Run the server:
 
     php artisan serve
     ```
+  ```sh
+    Run the livewire client:
+
+    npm run dev
+    ```
+
