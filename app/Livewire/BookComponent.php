@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Book;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -47,8 +48,12 @@ class BookComponent extends Component
      */
     public function render()
     {
-        $books = Book::all();
-        return view('livewire.book-component', compact('books'));
+        try {
+            $books = Book::all();
+            return view('livewire.book-component', compact('books'));
+        } catch (Exception $e) {
+            $this->dispatch('errorMessage', ['message' => "Something went wrong while fetching books."]);
+        }
     }
 
     /**
@@ -58,29 +63,27 @@ class BookComponent extends Component
      */
     public function save(): void
     {
-        $this->validate([
-            'title' => 'required|string',
-            'price' => 'required|string',
-            'image' => 'required|image|max:1024', // Adjust validation rules as needed
-            'description' => 'required|string',
-        ]);
+        try {
+            $this->validate([
+                'title' => 'required|string',
+                'price' => 'required|string',
+                'image' => 'required|image|max:1024', // Adjust validation rules as needed
+                'description' => 'required|string',
+            ]);
+            $imagePath = Storage::put('public/images', $this->image);
+            $book = new Book();
+            $book->title = $this->title;
+            $book->price = $this->price;
+            $book->image = asset(Storage::url($imagePath)); // Get the URL for the stored image
+            $book->description = $this->description;
+            $book->save();
 
-        // Store the image in the storage disk
-        $imagePath = Storage::put('public/images', $this->image);
-
-        // Create a new Book instance and assign attributes
-        $book = new Book();
-        $book->title = $this->title;
-        $book->price = $this->price;
-        $book->image = asset(Storage::url($imagePath)); // Get the URL for the stored image
-        $book->description = $this->description;
-
-        // Save the book to the database
-        $book->save();
-
-        // Redirect or change view after saving
-        $this->changeView('index');
-        $this->dispatch('successMessage', ['message' => 'Book Added Successfully']);
+            // Redirect or change view after saving
+            $this->changeView('index');
+            $this->dispatch('successMessage', ['message' => 'Book Added Successfully']);
+        } catch (Exception $e) {
+            $this->dispatch('errorMessage', ['message' => "Something went wrong while saving the book."]);
+        }
     }
 
     /**
@@ -91,13 +94,17 @@ class BookComponent extends Component
      */
     public function edit(int $id): void
     {
-        $book = Book::findOrFail($id);
-        $this->edit_id = $book->id;
-        $this->title = $book->title;
-        $this->price = $book->price;
-        $this->image = $book->image;
-        $this->description = $book->description;
-        $this->changeView('edit');
+        try {
+            $book = Book::findOrFail($id);
+            $this->edit_id = $book->id;
+            $this->title = $book->title;
+            $this->price = $book->price;
+            $this->image = $book->image;
+            $this->description = $book->description;
+            $this->changeView('edit');
+        } catch (Exception $e) {
+            $this->dispatch('errorMessage', ['message' => "Something went wrong while fetching the book to edit."]);
+        }
     }
 
     /**
@@ -107,18 +114,22 @@ class BookComponent extends Component
      */
     public function update(): void
     {
-        $book = Book::findOrFail($this->edit_id);
-        $book->title = $this->title;
-        $book->price = $this->price;
+        try {
+            $book = Book::findOrFail($this->edit_id);
+            $book->title = $this->title;
+            $book->price = $this->price;
 
-        if ($book->image != $this->image) {
-            $imagePath = Storage::put('public/images', $this->image);
-            $book->image = asset(Storage::url($imagePath));
+            if ($book->image != $this->image) {
+                $imagePath = Storage::put('public/images', $this->image);
+                $book->image = asset(Storage::url($imagePath));
+            }
+            $book->description = $this->description;
+            $book->save();
+            $this->changeView('index');
+            $this->dispatch('successMessage', ['message' => 'Book Updated Successfully']);
+        } catch (Exception $e) {
+            $this->dispatch('errorMessage', ['message' => "Something went wrong while updating the book."]);
         }
-        $book->description = $this->description;
-        $book->save();
-        $this->changeView('index');
-        $this->dispatch('successMessage', ['message' => 'Updated']);
     }
 
     /**
@@ -129,7 +140,11 @@ class BookComponent extends Component
      */
     public function delete(int $id): void
     {
-        $book = Book::find($id)->delete();
-        $this->dispatch('successMessage', ['message' => 'Deleted']);
+        try {
+            Book::find($id)->delete();
+            $this->dispatch('successMessage', ['message' => 'Book Deleted Successfully']);
+        } catch (Exception $e) {
+            $this->dispatch('errorMessage', ['message' => "Something went wrong while deleting the book."]);
+        }
     }
 }
